@@ -15,11 +15,14 @@ public class MainController {
 
     private final String topic = "mscashdesc";
 
-    @Autowired
     private ObjectMapper om;
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
+    public MainController(ObjectMapper om, KafkaTemplate<String, String> kafkaTemplate) {
+        this.om = om;
+        this.kafkaTemplate = kafkaTemplate;
+    }
 
     @PostMapping("/send")
     public void startTransaction(@RequestBody TransactionData transactionData) throws JsonProcessingException {
